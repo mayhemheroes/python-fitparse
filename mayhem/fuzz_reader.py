@@ -12,11 +12,10 @@ logging.disable(logging.ERROR)
 
 @atheris.instrument_func
 def TestOneInput(data):
-    fdp = atheris.FuzzedDataProvider(data)
     try:
-        with io.BytesIO(fdp.ConsumeBytes(fdp.remaining_bytes())) as fit_file:
-            for data in fitparse.FitFile(fit_file):
-                dir(data)
+        with io.BytesIO(data) as f:
+            fit_file = fitparse.FitFile(f)
+            fit_file.parse()
     except fitparse.FitParseError:
         return -1
     except AttributeError:
