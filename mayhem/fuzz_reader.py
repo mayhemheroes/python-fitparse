@@ -15,7 +15,17 @@ def TestOneInput(data):
     try:
         with io.BytesIO(data) as f:
             fit_file = fitparse.FitFile(f)
+            if not fit_file:
+                return -1
+
             fit_file.parse()
+
+            fit_file.get_messages('record')
+            fit_file.get_messages('device_info')
+            fit_file.get_messages('event')
+            fit_file.get_messages('file_creator')
+
+            fit_file.close()
     except fitparse.FitParseError:
         return -1
     except AttributeError:
