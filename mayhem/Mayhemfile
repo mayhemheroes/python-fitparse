@@ -1,7 +1,7 @@
 project: python-fitparse
-target: reader-fuzz
+target: reader
 testsuite:
     - file://mayhem/testsuite
 cmds:
-  - cmd: /src/mayhem/fuzz_reader.py
+  - cmd: /app/harnesses/fuzz_reader.py
     libfuzzer: true
